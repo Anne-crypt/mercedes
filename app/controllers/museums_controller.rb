@@ -8,7 +8,11 @@ class MuseumsController < ApplicationController
     museums = URI.open(url)
     @museums = JSON.parse(museums.read)
 
-
-    puts "#{@museums}"
+    result = []
+    @museums["features"].each do |museum|
+      postcode = museum["context"][0]["text"]
+      name = museum["text"]
+      @result = result << postcode + " " + name
+    end
   end
 end
